@@ -1,30 +1,30 @@
 import { useState } from "react";
-import { v4 as uuid } from 'uuid';
 import AddCategory from "./components/AddCategory";
 
 const GifExpertApp = () => {
+    const [categories, setCategories] = useState(['Kenaz']);
 
-    const unique_id = uuid();
-
-    const [categories, setCategories] = useState(['One Punch']);
+    const onAddCategory = (newCategory) =>{
+        if(categories.includes(newCategory)) return;
+        setCategories([newCategory, ...categories]);
+    }
 
     return (
         <>
-        {/* Título */}
-            <h1>GifExpertApp</h1>
+            <h1>GitExpertApp</h1>
 
-            {/* Input */}
-            <AddCategory />
-            {/* listado de Gif */}
+            <AddCategory
+                onNewCategory={ (value) => onAddCategory(value) }
+            />
+
+            <button onClick={ onAddCategory }>Agregar</button>
             <ol>
-                { 
+                {
                     categories.map(category => {
-                        return <li key={unique_id}>{ category }</li>
+                        return <li key={category}>{ category }</li>
                     })
                 }
             </ol>
-
-            {/* Gif Item */}
         </>
     )
 }
